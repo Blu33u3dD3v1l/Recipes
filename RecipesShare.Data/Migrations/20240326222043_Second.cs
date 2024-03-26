@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-
 #nullable disable
-
 namespace RecipesShare.Data.Migrations
 {
-    /// <inheritdoc />
+    
     public partial class Second : Migration
     {
-        /// <inheritdoc />
+       
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.UpdateData(
@@ -25,7 +23,7 @@ namespace RecipesShare.Data.Migrations
                 values: new object[] { "Whether you’ve got some leftover challah from Shabbat dinner or you’re buying a loaf specifically to make French toast, it’s the most wonderful (and easy!) Saturday morning breakfast out there. \r\n\r\nChallah is the best bread for French toast, bar none. It’s sturdy enough to stand up to its custard soak and a shower of maple syrup, yet tender and fluffy enough to cut.", "https://www.simplyrecipes.com/thmb/7gy-motpgtBFgATUrVcU4mPyX0M=/450x300/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Challah-French-Toast-LEAD-11-93f90c8d48324cc28a583180f9d8f32d.jpg" });
         }
 
-        /// <inheritdoc />
+       
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.UpdateData(

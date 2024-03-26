@@ -1,55 +1,50 @@
 ﻿<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RecipesShare</title>    
+    <title>@ViewData["Title"] - RecipesShare</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RecipesShare.styles.css" asp-append-version="true" />
 </head>
 
-    <header>
+<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 align-items-center" style="height: 80px;">
         <div class="container-fluid d-flex justify-content-between align-items-center">
 
             <a href="/home">
-                <img src="~/images/Recipes image.png" class="img-fluid"style="width: 80%" alt="Home">
-                
-            </a>
-           
-               @*  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> *@
+                <img src="~/images/Recipes image.png" class="img-fluid" style="width: 80%" alt="Home">
 
-            <nav id="navbar" class="navbar order-last order-lg-0 align-items-center">
+            </a>
+
+            <div id="navbar" class="navbar align-items-center" style="margin-right: 100px;">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/">RECIPES</a></li>
-                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Menu" asp-action="Menu">FAST & EASY</a></li>
-                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Special" asp-action="Special">SPECIALS</a></li>
-                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Event" asp-action="Event">EVENTS</a></li>
-                    <li><a class="nav-link scrollto" asp-area="" asp-controller="Chef" asp-action="Chef">FOR US</a></li>
+                    <li><a class="nav-link" style="color: black;" href="/">RECIPES</a></li>
+                    <li><a class="nav-link" asp-area="" asp-controller="Menu" asp-action="Menu">FAST & EASY</a></li>
+                    <li><a class="nav-link" asp-area="" asp-controller="Special" asp-action="Special">EVENTS</a></li>
+                    <li><a class="nav-link" asp-area="" asp-controller="Event" asp-action="Event">ADD RECIPE</a></li>
+                    <li><a class="nav-link" asp-area="" asp-controller="Chef" asp-action="Chef">FOR US</a></li>
 
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-            
-                    <partial name="_LoginPartial" />
-                            
+               
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - RecipesShare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <partial name="_LoginPartial" />
         </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+       
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2024 - RecipesShare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
