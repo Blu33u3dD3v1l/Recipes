@@ -1,0 +1,134 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.hero-section {
+    background-image: url('https://t3.ftcdn.net/jpg/06/72/45/22/360_F_672452282_37w8WlNXxxgY0hxCNKEMTTj03IQE5ong.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 150px 0;
+}
+
+/* Popular Recipes Section */
+.popular-recipes-section {
+    padding: 50px 0;
+}
+
+    .popular-recipes-section h2 {
+        margin-bottom: 40px;
+    }
+
+.card {
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+/* Navigation Bar */
+.navbar {
+    background-color: #fff;
+    
+}
+
+.navbar {
+    padding: 0;
+}
+
+    .navbar ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        align-items: center;
+    }
+
+    .navbar li {
+        position: relative;
+        
+    }
+
+    .navbar a,
+    .navbar a:focus {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 0 10px 30px;
+        color: black;
+        white-space: nowrap;
+        transition: 0.3s;
+        font-size: 16px;
+        font-weight: 600;
+        
+    }
+
+        .navbar a i,
+        .navbar a:focus i {
+            font-size: 12px;
+            line-height: 0;
+            margin-left: 5px;
+            
+        }
+
+      /*  .navbar a:hover,
+        .navbar .active,
+        .navbar .active:focus,
+        .navbar li:hover > a {
+            color: #d9ba85;
+        }*/
+
+   
+       
+      
+
+         
+
+            .navbar .dropdown ul a:hover,
+            .navbar .dropdown ul .active:hover,
+            .navbar .dropdown ul li:hover > a {
+                color: #cda45e;
+            }
+
+    .navbar .dropdown:hover > ul {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+    }
+
+    .navbar .dropdown .dropdown ul {
+        top: 0;
+        left: calc(100% - 30px);
+        visibility: hidden;
+    }
+
+    .navbar .dropdown .dropdown:hover > ul {
+        opacity: 1;
+        top: 0;
+        left: 100%;
+        visibility: visible;
+    }
+
+.border-gold {
+    border-color: gold !important;
+}
+.border-bottom {
+    border-color: gold !important;
+}
