@@ -1,21 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using RecipesShare.Models;
+using RecipesShare.Services.Interface;
 using System.Diagnostics;
-
 namespace RecipesShare.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IRecipeService recipeService;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(IRecipeService _recipeService)
+            => recipeService = _recipeService;
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await recipeService.GetAllRecipesAsync();
+
+            return View(model);
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,7 @@
-﻿<section class="hero-section text-center">
+﻿@model IEnumerable<RecipesShare.Models.Home.RecipeModel>
+
+
+<section class="hero-section text-center">
     <div class="container">
         <h1>Welcome to Recipes Share</h1>
         <p>Discover and share delicious recipes from around the world</p>
@@ -6,21 +9,23 @@
     </div>
 </section>
 
-<!-- Popular Recipes Section -->
 <section class="popular-recipes-section">
     <div class="container">
         <h2 class="text-center mb-4">Popular Recipes</h2>
-        <div class="row">          
-            <div class="col-md-4 mb-4">
-                <div class="card border border-gold">
-                    <img src="https://www.simplyrecipes.com/thmb/RX2jA-_cA83GnwMwtoH_MWZ45Fs=/300x200/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Pizza-Stuffed-Peppers-LEAD-4-86dfd730b28b4c42a113066eb54a3fdf.jpg" class="card-img-top" alt="Recipe Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Recipe Name</h5>
-                        <p class="card-text">Short description of the recipe goes here...</p>
-                        <a href="#" class="btn btn-primary">View Recipe</a>
+        <div class="row">    
+            @foreach (var recipes in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card border border-gold">
+                        <img src="@recipes.ImageUrl" class="card-img-top" alt="Recipe Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@recipes.Name</h5>
+                            <p class="card-text">@recipes.Description</p>
+                            <a href="#" class="btn btn-primary">View Recipe</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }          
         </div>
     </div>
 </section>

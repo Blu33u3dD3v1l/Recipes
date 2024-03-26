@@ -10,6 +10,6 @@
 
         public string ImageUrl { get; set; } = null!;
 
-        public string CookTime { get; set; } = null!;
+        public int CookTime { get; set; }
     }
 }
