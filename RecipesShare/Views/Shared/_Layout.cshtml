@@ -8,7 +8,7 @@
 </head>
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 align-items-center" style="height: 80px;">
+     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 align-items-center" style="height: 80px;">
         <div class="container-fluid d-flex justify-content-between align-items-center">
 
             <a href="/home">
@@ -16,7 +16,7 @@
 
             </a>
 
-            <div id="navbar" class="navbar align-items-center">
+            <div id="navbar" class="navbar align-items-center" style="margin-left: 50px">
                 <ul>
                     <li><a class="nav-link" style="color: black;" href="/">RECIPES</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Menu" asp-action="Menu">FAST & EASY</a></li>
@@ -24,18 +24,20 @@
                     <li><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">ADD RECIPE</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Chef" asp-action="Chef">FOR US</a></li>
 
-                </ul>           
+                </ul>  
             </div>
 
+            <partial name="_LoginPartial" />
+
+
             <a href="/home">
-                <img src="~/images/Recipes Revers.jpg" class="img-fluid" style="width: 80%" alt="Home">
+                <img src="~/images/Recipes Revers.jpg" class="img-fluid" style="width: 85%" alt="Home">
 
             </a>
-
-            <partial name="_LoginPartial" />
         </div>
        
     </nav>
+   
 </header>
 <div class="container">
     <main role="main" class="pb-3">
