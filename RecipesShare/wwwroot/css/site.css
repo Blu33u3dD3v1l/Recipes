@@ -50,35 +50,37 @@ html {
 }
 
 .navbar {
+    background-color: #fff;
     padding: 0;
 }
 
-    .navbar ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        list-style: none;
-        align-items: center;
-    }
+
+.navbar-nav li {
+    position: relative;
+}
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
 
     .navbar li {
         position: relative;
-        
     }
 
     .navbar a,
     .navbar a:focus {
         display: flex;
         align-items: center;
-        justify-content: stretch;
-        padding: 10px 0 10px 30px;
+        justify-content: center; /* Change from 'stretch' to 'center' */
+        padding: 10px 30px; /* Adjust padding as needed */
         color: black;
         white-space: nowrap;
         transition: 0.3s;
         font-size: 16px;
-        font-weight: 700;
-       
-        
+        font-weight: 500;
     }
 
         .navbar a i,
@@ -86,33 +88,33 @@ html {
             font-size: 12px;
             line-height: 0;
             margin-left: 5px;
-            
         }
 
 .border-gold {
     border-color: gold !important;
 }
+
 .border-bottom {
     border-color: gold !important;
 }
 
 body {
-    overflow-y: scroll; /* Always show scrollbar */
-    scrollbar-width: thin; /* "auto" or "thin" based on browser support */
-    scrollbar-color: transparent transparent; /* Change scrollbar color if needed */
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
 }
 
-/* Style adjustments for scrollbar appearance */
+/* Adjustments for scrollbar appearance */
 ::-webkit-scrollbar {
-    width: 12px; /* Adjust the width as needed */
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent; /* Change track color if needed */
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Change thumb color if needed */
-    border-radius: 10px; /* Adjust border-radius as needed */
-    border: 3px solid transparent; /* Adjust border width as needed */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 3px solid transparent;
 }
