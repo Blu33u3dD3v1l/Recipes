@@ -21,9 +21,11 @@
                     <li><a class="nav-link" style="color: black;" href="/">RECIPES</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Menu" asp-action="Menu">FAST & EASY</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Special" asp-action="Special">EVENTS</a></li>
-                    <li><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">ADD RECIPE</a></li>
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">ADD RECIPE</a></li>
+                    }
                     <li><a class="nav-link" asp-area="" asp-controller="Chef" asp-action="Chef">FOR US</a></li>
-
                 </ul>  
             </div>
 
@@ -45,11 +47,38 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="bg-white text-black border-top">
     <div class="container">
-        &copy; 2024 - RecipesShare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="row foot">
+            <div class="col-md-6">
+                <h5>About Us</h5>
+                <p class="footer-text text-dark">Passionate about cooking and sharing delicious recipes.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="footer-link">Home</a></li>
+                    <li><a href="#" class="footer-link">Recipes</a></li>
+                    <li><a href="#" class="footer-link">About Us</a></li>
+                    <li><a href="#" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="footer-link">Facebook</a></li>
+                    <li><a href="#" class="footer-link">Twitter</a></li>
+                    <li><a href="#" class="footer-link">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="text-center">
+            &copy; 2024 Cooking Recipes
+        </div>
     </div>
 </footer>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

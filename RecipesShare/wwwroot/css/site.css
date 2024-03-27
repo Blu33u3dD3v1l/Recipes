@@ -125,3 +125,39 @@ body {
 .log-out{
     margin-top: 14px;
 }
+
+.footer {
+    padding-top: -50px;
+   
+  
+}
+
+    .footer h5 {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+.footer-text {
+    color: #ccc;
+}
+
+.footer-link {
+    color: #ccc;
+}
+
+    .footer-link:hover {
+        color: #fff;
+    }
+
+.divider {
+    border-top: 1px solid #555;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.border-top {
+    border-color: gold !important;
+}
+.foot{
+    margin-top: 30px;
+}

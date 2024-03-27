@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
 
 namespace RecipesShare.Controllers
 {
+    [Authorize]
     public class RecipeController : Controller
     {
          private readonly IRecipeService recipeService;
