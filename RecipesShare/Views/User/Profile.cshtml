@@ -1,4 +1,7 @@
-﻿@* <div class="container mt-5">
+﻿@model RecipesShare.Models.Home.UserModel
+
+
+@* <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -34,15 +37,15 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <img src="profile_picture.jpg" class="card-img-top profile-img" alt="Profile Picture">
+                <img src="@Model.ImageUrl" class="card-img-top profile-img" alt="Profile Picture">
                 <div class="card-body">
-                    <h5 class="card-title">John Doe</h5>
-                    <p class="card-text">Location: New York</p>
+#if                    <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+                    <p class="card-text">Location: @Model.Location</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">First Name: John</li>
-                    <li class="list-group-item">Last Name: Doe</li>
-                    <li class="list-group-item">Location: New York</li>
+                    <li class="list-group-item">First Name: @Model.FirstName</li>
+                    <li class="list-group-item">Last Name: @Model.LastName</li>
+                    <li class="list-group-item">Location: @Model.Location</li>
                 </ul>
                 <div class="card-body">
                     <a href="ProfileFill" class="card-link">Edit Profile</a>
@@ -54,8 +57,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">About Me</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur. Integer a ante vitae quam sodales suscipit vel non lacus. Mauris a augue vitae magna scelerisque ultricies.</p>
-                    <p class="card-text">Donec eget volutpat libero. Phasellus id elit consequat, suscipit lorem non, convallis neque. Nullam in orci eget odio convallis bibendum.</p>
+                    <p class="card-text">@Model.AboutMe</p>             
                 </div>
             </div>
         </div>
