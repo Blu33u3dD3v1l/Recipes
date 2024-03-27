@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
 
 namespace RecipesShare.Controllers
@@ -10,11 +11,27 @@ namespace RecipesShare.Controllers
         public RecipeController(IRecipeService _recipeService)
             => recipeService = _recipeService;
 
-        public async Task<IActionResult> All()
+        [HttpGet]
+        public IActionResult AddRecipe()
         {
-            var model = await recipeService.GetAllRecipesAsync();
+            return View();
+        }
 
-            return View(model);
+        [HttpPost]
+        public async Task<IActionResult> AddRecipe(RecipeModel model)
+        {
+            try
+            {
+                await this.recipeService.AddRecipeAsync(model);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Unexpected Error");
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace RecipesShare.Models.Home
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RecipesShare.Models.Home
 {
     public class RecipeModel
     {
@@ -6,6 +8,7 @@
 
         public string Name { get; set; } = null!;
 
+        [MaxLength(364)]
         public string Description { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
