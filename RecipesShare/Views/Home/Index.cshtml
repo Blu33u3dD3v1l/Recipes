@@ -4,6 +4,8 @@
     ViewBag.Title = "Home";
 }
 
+
+
 <section class="hero-section text-center">
     <div class="container">
         <h1>Welcome to Recipes Share</h1>
@@ -17,12 +19,24 @@
         <div class="row">    
             @foreach (var recipes in Model)
             {
+                @* <div class="col-md-4 mb-4">
+                    <div class="card border border-gold">
+                        <img src="@recipes.ImageUrl" class="card-img-top" alt="Recipe Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@recipes.Name</h5>                           
+                                <button class="btn btn-link" id="toggleDescriptionBtn">Toggle Description</button>                               
+                            <p class="card-text">@recipes.Description</p>                           
+                            <a href="#" class="btn btn-primary">View Recipe</a>
+                        </div>
+                    </div>
+                </div> *@
                 <div class="col-md-4 mb-4">
                     <div class="card border border-gold">
                         <img src="@recipes.ImageUrl" class="card-img-top" alt="Recipe Image">
                         <div class="card-body">
                             <h5 class="card-title">@recipes.Name</h5>
-                            <p class="card-text">@recipes.Description</p>
+                            <p class="card-text recipe-description d-none">@recipes.Description</p>
+                            <button class="btn btn-link toggle-description-btn">Toggle Description</button>
                             <a href="#" class="btn btn-primary">View Recipe</a>
                         </div>
                     </div>
@@ -31,3 +45,5 @@
         </div>
     </div>
 </section>
+
+

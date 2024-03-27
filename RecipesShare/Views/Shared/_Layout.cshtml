@@ -21,11 +21,14 @@
                     <li><a class="nav-link" style="color: black;" href="/">RECIPES</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Menu" asp-action="Menu">FAST & EASY</a></li>
                     <li><a class="nav-link" asp-area="" asp-controller="Special" asp-action="Special">EVENTS</a></li>
+
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
                         <li><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">ADD RECIPE</a></li>
                     }
+
                     <li><a class="nav-link" asp-area="" asp-controller="Chef" asp-action="Chef">FOR US</a></li>
+
                 </ul>  
             </div>
 
