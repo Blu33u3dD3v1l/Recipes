@@ -5,7 +5,7 @@ using RecipesShare.Data.Models;
 
 namespace RecipesShare.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,6 +13,8 @@ namespace RecipesShare.Data
         }
 
         public DbSet<Recipe> Recipes { get; set; } = null!;
+
+        public DbSet<ApplicationUser> ApplicationUser { get; set; } = null!;
 
 
 
