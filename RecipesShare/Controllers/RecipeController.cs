@@ -35,5 +35,12 @@ namespace RecipesShare.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [AllowAnonymous]
+        public IActionResult RecipeView()
+        {
+            return View();
+        }
+
     }
 }
