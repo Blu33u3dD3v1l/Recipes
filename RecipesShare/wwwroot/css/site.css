@@ -170,3 +170,7 @@ body {
     margin-left: 50px;
 }
 
+.info{
+    border-top: double;
+}
+

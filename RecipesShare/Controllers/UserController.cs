@@ -60,5 +60,24 @@ namespace RecipesShare.Controllers
             return RedirectToAction("Profile", "User");
         }
 
+        public async Task<IActionResult> ChangeInfo()
+        {
+                var currId = User.GetId();
+                var view = await userService.GetEditUserAsync(currId);
+
+                return View(view);
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeInfo(ApplicationUser model)
+        {
+            var id = User.GetId();
+
+            await userService.ChangeUserInformation(id, model);
+
+            return RedirectToAction("Profile", "User");
+        }
+
     }
 }

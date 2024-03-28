@@ -8,6 +8,8 @@ namespace RecipesShare.Services.Interface
         Task AddUserInformation(string id, Models.Home.ApplicationUser model);
         Task<bool> GetUser(string id);
         Task<Data.Models.ApplicationUser> RealUserTake(string id);
+        Task<Data.Models.ApplicationUser> GetEditUserAsync(string id);
+        Task ChangeUserInformation(string id, Models.Home.ApplicationUser model);
 
     }
 }
