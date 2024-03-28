@@ -1,6 +1,6 @@
 ﻿namespace RecipesShare.Models.Home
 {
-    public class UserModel
+    public class ApplicationUser
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

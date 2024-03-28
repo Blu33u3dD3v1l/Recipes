@@ -1,4 +1,7 @@
-﻿<div class="container mt-5">
+﻿@model RecipesShare.Models.Home.ApplicationUser
+
+
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -6,24 +9,24 @@
                     <h5 class="card-title">Profile</h5>
                     <form method="POST">
                         <div class="form-group">
-                            <label for="Image">Profile Picture</label>
-                            <input type="file" class="form-control-file" id="profilePicture">
+                            <label asp-for="@Model.ImageUrl">Profile Picture</label>
+                            <input asp-for="@Model.ImageUrl" type="text" class="form-control-file" id="profilePicture">
                         </div>
                         <div class="form-group">
-                            <label for="FirstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" value="John">
+                            <label asp-for="@Model.FirstName">First Name</label>
+                            <input asp-for="@Model.FirstName" type="text" class="form-control" id="firstName" value="John">
                         </div>
                         <div class="form-group">
-                            <label for="LastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" value="Doe">
+                            <label asp-for="@Model.LastName">Last Name</label>
+                            <input asp-for="@Model.LastName" type="text" class="form-control" id="lastName" value="Doe">
                         </div>
                         <div class="form-group">
-                            <label for="Location">Location</label>
-                            <input type="text" class="form-control" id="location" value="New York">
+                            <label asp-for="@Model.Location">Location</label>
+                            <input asp-for="@Model.Location" type="text" class="form-control" id="location" value="New York">
                         </div>
                         <div class="form-group">
-                            <label for="AboutMe">About Me</label>
-                            <textarea class="form-control" id="aboutMe" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur.</textarea>
+                            <label asp-for="@Model.AboutMe">About Me</label>
+                            <textarea asp-for="@Model.AboutMe" class="form-control" id="aboutMe" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur.</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>

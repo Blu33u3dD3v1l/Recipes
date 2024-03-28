@@ -7,5 +7,6 @@ namespace RecipesShare.Services.Interface
 
         Task<IEnumerable<RecipeModel>> GetAllRecipesAsync();
         Task AddRecipeAsync(RecipeModel model);
+       
     }
 }

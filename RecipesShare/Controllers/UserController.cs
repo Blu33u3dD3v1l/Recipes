@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
+using RecipesShare.WebExtensions;
+using System.Runtime.InteropServices;
+using System.Security.Claims;
 
 namespace RecipesShare.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
 
@@ -13,10 +18,30 @@ namespace RecipesShare.Controllers
         public UserController(IUserService _userService)
             => userService = _userService;
 
-        [HttpGet]
-        public IActionResult Profile()
+       
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var currentId = User.GetId();
+            var currentUser = await userService.GetUser(currentId);
+
+            if(currentUser == true)
+            {
+                try
+                {
+                    var b = await userService.RealUserTake(currentId);
+                    return View(b);
+                }
+                catch (Exception)
+                {
+
+                    return RedirectToAction("Index", "Home");
+                }                          
+               
+            }
+            else
+            {
+                return RedirectToAction("ProfileFill", "User");
+            }
         }
 
         [HttpGet]
@@ -26,10 +51,12 @@ namespace RecipesShare.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileFill(string Id, UserModel model)
+        public async Task<IActionResult> ProfileFill(ApplicationUser model)
         {
 
-            await userService.AddUserInformation(Id, model);
+            var id = User.GetId();
+
+            await userService.AddUserInformation(id, model);
 
             return RedirectToAction("Profile", "User");
         }

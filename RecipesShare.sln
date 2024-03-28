@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesShare.Models", "Reci
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5EB190AA-2895-4427-B7F9-A9EAC48666C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesShare.Services", "RecipesShare.Services\RecipesShare.Services.csproj", "{BE70B183-BAD3-4B8D-AA40-966DCEAE4D32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesShare.Services", "RecipesShare.Services\RecipesShare.Services.csproj", "{BE70B183-BAD3-4B8D-AA40-966DCEAE4D32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesShare.WebExtensions", "RecipesShare.WebExtensions\RecipesShare.WebExtensions.csproj", "{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesShare.WebExtensions", "RecipesShare.WebExtensions\RecipesShare.WebExtensions.csproj", "{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
