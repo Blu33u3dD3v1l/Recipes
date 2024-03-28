@@ -7,6 +7,8 @@
         public string? ImageUrl { get; set; }
         public string? Location { get; set; }
         public string? AboutMe { get; set; }
+        public string? Country { get; set; }
+        public string? Sex { get; set; }
 
     }
 }

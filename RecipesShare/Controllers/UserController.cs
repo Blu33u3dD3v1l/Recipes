@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
 using RecipesShare.WebExtensions;
-using System.Runtime.InteropServices;
-using System.Security.Claims;
+
 
 namespace RecipesShare.Controllers
 {

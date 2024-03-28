@@ -36,6 +36,10 @@ namespace RecipesShare.Services
             existingUser.LastName = model.LastName;
             existingUser.AboutMe = model.AboutMe;
             existingUser.Location = model.Location;
+            existingUser.Sex = model.Sex;
+            existingUser.Country = model.Country;
+           
+            
 
             
 
@@ -53,7 +57,7 @@ namespace RecipesShare.Services
                 throw new ArgumentNullException(nameof(user));
             }
 
-            if(user.FirstName != null && user.LastName != null && user.AboutMe != null && user.ImageUrl != null && user.Location != null)
+            if(user.FirstName != null && user.LastName != null && user.AboutMe != null && user.ImageUrl != null && user.Location != null && user.Sex != null && user.Country != null)
             {
                 return true;
             }

@@ -16,8 +16,7 @@
                 </a>
                 @if(User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!-- Dropdown items go here -->
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                      
                         <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">Add Recipe</a>
                         <div class="dropdown-divider"></div>
