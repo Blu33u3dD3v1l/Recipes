@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipesShare.Data;
 
@@ -11,9 +12,11 @@ using RecipesShare.Data;
 namespace RecipesShare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240330191655_Fluent")]
+    partial class Fluent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +259,12 @@ namespace RecipesShare.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
                 });
@@ -322,15 +330,19 @@ namespace RecipesShare.Data.Migrations
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.HasKey("RecipeId", "IngredientId");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("IngredientId");
+                    b.Property<string>("Ingredient")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IngredientId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeIngredients");
                 });
@@ -386,6 +398,17 @@ namespace RecipesShare.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>
+                {
+                    b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
                     b.HasOne("RecipesShare.Data.Models.ApplicationUser", "User")
@@ -397,31 +420,18 @@ namespace RecipesShare.Data.Migrations
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
-                    b.HasOne("RecipesShare.Data.Models.Ingredient", "Ingredient")
-                        .WithMany("RecipeIngredients")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
-                        .WithMany("RecipeIngredients")
+                        .WithMany()
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ingredient");
-
                     b.Navigation("Recipe");
-                });
-
-            modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>
-                {
-                    b.Navigation("RecipeIngredients");
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
-                    b.Navigation("RecipeIngredients");
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

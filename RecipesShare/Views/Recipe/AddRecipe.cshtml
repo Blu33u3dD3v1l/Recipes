@@ -21,11 +21,37 @@
                     <label asp-for="@Model.ImageUrl">Recipe Image URL</label>
                     <input asp-for="@Model.ImageUrl" type="text" class="form-control" placeholder="Enter URL for recipe image">
                 </div>
+                
+                <div class="form-group" id="ingredientInputs">
+                    @if (Model.Ingredients != null)
+                    {
+                        @for (var i = 0; i < Model.Ingredients.Count; i++)
+                        {
+                            <div class="ingredient-input">
+                                <label asp-for="@Model.Ingredients[i].Name">Ingredient @(i + 1)</label>
+                                <input asp-for="@Model.Ingredients[i].Name" type="text" class="form-control" placeholder="Enter ingredient">
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    @if (Model.Ingredients != null)
+                    {
+                        @for (var i = 0; i < Model.Ingredients.Count; i++)
+                        {
+                            <label asp-for="@Model.Ingredients[i].Name">Ingredient @(i + 1)</label>
+                            <input asp-for="@Model.Ingredients[i].Name" type="text" class="form-control" placeholder="Enter ingredient">
+                        }
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">Save</button>
                 <button type="submit" class="btn btn-primary" value="Add">Add Recipe</button>
             </form>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

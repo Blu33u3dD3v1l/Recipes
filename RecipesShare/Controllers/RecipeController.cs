@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
+using RecipesShare.Services;
 using RecipesShare.Services.Interface;
+using RecipesShare.WebExtensions;
 
 namespace RecipesShare.Controllers
 {
@@ -16,25 +19,45 @@ namespace RecipesShare.Controllers
         [HttpGet]
         public IActionResult AddRecipe()
         {
-            return View();
+            var model = new RecipeModel();
+            model.Ingredients = new List<Ingredient>(); // Make sure to initialize the Ingredients list
+            return View(model);
+            
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddRecipe(RecipeModel model)
+        public async Task<IActionResult> AddRecipe([FromBody] RecipeModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                await this.recipeService.AddRecipeAsync(model);
-            }
-            catch (Exception)
-            {
-
-                ModelState.AddModelError(string.Empty, "Unexpected Error");
-                return View();
+                return BadRequest(ModelState);
             }
 
-            return RedirectToAction("Index", "Home");
+
+            var thisId = User.GetId();
+
+            await recipeService.AddRecipeWithIngredientsAsync(thisId, model);
+
+            return Ok("Recipe added successfully.");
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddRecipe(RecipeModel model)
+        //{
+
+        //    var thisId = User.GetId();
+        //    try
+        //    {
+        //        await this.recipeService.AddRecipeAsync(thisId, model);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        ModelState.AddModelError(string.Empty, "Unexpected Error");
+        //        return View();
+        //    }
+
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         [AllowAnonymous]
         public IActionResult RecipeView()
