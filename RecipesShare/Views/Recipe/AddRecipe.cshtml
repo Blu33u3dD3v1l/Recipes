@@ -21,14 +21,17 @@
                     <label asp-for="@Model.ImageUrl">Recipe Image URL</label>
                     <input asp-for="@Model.ImageUrl" type="text" class="form-control" placeholder="Enter URL for recipe image">
                </div>
-                
-                    <!-- Dynamically add input fields for ingredients -->
+
                     <div class="form-group">
                         <div class="ingredient-input">
-                            <label asp-for="@Model.Ingredient">Ingredient 1</label>
-                            <input asp-for="@Model.Ingredient" type="text" class="form-control" placeholder="Enter ingredient">
+                            <label asp-for="@Model.Ingredient">Ingredients</label>
+                            <input asp-for="@Model.Ingredient" type="text" class="form-control" placeholder="Enter ingredients separadet with single coma!">
                         </div>
                     </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Instructions">Instructions</label>
+                    <input asp-for="@Model.Instructions" type="text" class="form-control" placeholder="Enter Instructions here!">
+                </div>
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Save Recipe</button>

@@ -27,6 +27,8 @@ namespace RecipesShare.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRecipe(RecipeModel model)
         {
+
+            var thisId = User.GetId();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -34,7 +36,7 @@ namespace RecipesShare.Controllers
 
             try
             {
-                await recipeService.AddRecipeAsync(model);
+                await recipeService.AddRecipeAsync(thisId, model);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -45,9 +47,15 @@ namespace RecipesShare.Controllers
 
 
         [AllowAnonymous]
-        public IActionResult RecipeView()
+        public async Task<IActionResult> RecipeDetails(int id)
         {
-            return View();
+            var recipe = await recipeService.GetRecipeWithIngredientsAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipe);
         }
 
     }

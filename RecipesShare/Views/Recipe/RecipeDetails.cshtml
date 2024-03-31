@@ -1,0 +1,60 @@
+﻿@model RecipesShare.Data.Models.Recipe
+
+
+<div class="container">
+    <div class="row">        
+        <div class="col-md-8 offset-md-2">
+            @if (Model.Id == 1 || Model.Id == 2 || Model.Id == 3)
+            {
+                <h1 class="text-center mb-4">Delicious Recipe</h1>
+                <div class="author-section mb-4">
+                    <h6>Author:</h6>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img src="https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg" class="rounded-circle" alt="Author Image" style="width: 50px; height: 50px;">
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">Admin</p>
+                            <p class="text-muted">Chefs & Food Enthusiasts</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h1 class="text-center mb-4">Delicious Recipe</h1>
+                <div class="author-section mb-4">
+                    <h6>Author:</h6>
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img src="@Model.User?.ImageUrl" class="rounded-circle" alt="Author Image" style="width: 50px; height: 50px;">
+                        </div>
+                        <div class="col">
+                            <p class="mb-0">@Model.User?.FirstName @Model.User?.LastName</p>
+                            <p class="text-muted">Chefs & Food Enthusiasts</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            <div class="card">
+                <img src="@Model.ImageUrl" class="card-img-top" alt="Recipe Image">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <h6>Ingredients:</h6>
+                    @foreach (var item in Model.RecipeIngredients)
+                    {
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">@item.Ingredient?.Name</li>
+
+                        </ul>
+                    }
+
+                    <h6 class="mt-3">Instructions:</h6>                  
+                    <p>@Model.Instructions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,8 +16,10 @@ namespace RecipesShare.Models.Home
         public string ImageUrl { get; set; } = null!;
 
         public int CookTime { get; set; }
+        public string? Author { get; set; }
 
-        public string Ingredient { get; set; } 
+        public string? Ingredient { get; set; } 
+        public string? Instructions { get; set; }
 
     }
 

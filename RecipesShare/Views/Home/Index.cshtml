@@ -28,7 +28,7 @@
                             <h5 class="card-title">@recipes.Name</h5>
                             <p class="card-text recipe-description d-none">@recipes.Description</p>
                             <button class="btn btn-link toggle-description-btn descr">Description</button>
-                            <a asp-area="" asp-controller="Recipe" asp-action="RecipeView" class="btn btn-primary recipeview">View Recipe</a>
+                            <a asp-area="" asp-controller="Recipe" asp-action="RecipeDetails" asp-route-id="@recipes.Id" class="btn btn-primary recipeview">View Recipe</a>
                         </div>
                     </div>
                 </div>

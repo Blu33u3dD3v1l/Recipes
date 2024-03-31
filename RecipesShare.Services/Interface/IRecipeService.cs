@@ -1,4 +1,5 @@
-﻿using RecipesShare.Models.Home;
+﻿using RecipesShare.Data.Models;
+using RecipesShare.Models.Home;
 
 namespace RecipesShare.Services.Interface
 {
@@ -6,7 +7,8 @@ namespace RecipesShare.Services.Interface
     {
 
         Task<IEnumerable<RecipeModel>> GetAllRecipesAsync();
-        Task AddRecipeAsync(RecipeModel model);
+        Task AddRecipeAsync(string id, RecipeModel model);
+        Task<Recipe> GetRecipeWithIngredientsAsync(int id);
 
 
     }

@@ -16,7 +16,7 @@ namespace RecipesShare.Services
             context = _context;
         }
 
-        public async Task AddRecipeAsync(RecipeModel model)
+        public async Task AddRecipeAsync(string id, RecipeModel model)
         {
 
             try
@@ -33,7 +33,12 @@ namespace RecipesShare.Services
                     Name = model.Name,
                     Description = model.Description,
                     ImageUrl = model.ImageUrl,
-                    CookTime = model.CookTime
+                    CookTime = model.CookTime,
+                    Instructions = model.Instructions,
+                    Author = model.Author,
+                    UserId = id,
+                    
+                    
                 };
 
                 context.Recipes.Add(recipe);
@@ -50,11 +55,10 @@ namespace RecipesShare.Services
 
                 await context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Handle the exception appropriately (e.g., log the error, provide user feedback)
-                // For debugging purposes, you can inspect the inner exception for more details
-                throw ex;
+               
+                throw new Exception();
             }
         }
 
@@ -73,6 +77,24 @@ namespace RecipesShare.Services
                }).ToListAsync();
 
             return recipes;
+        }
+
+        public async Task<Recipe> GetRecipeWithIngredientsAsync(int id)
+        {
+
+            var recipe = await context.Recipes
+            .Include(x => x.User)
+            .Include(r => r.RecipeIngredients)
+            .ThenInclude(ri => ri.Ingredient)  
+            
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+            if(recipe == null)
+            {
+                throw new Exception();
+            }
+
+            return recipe;
         }
     }
 }
