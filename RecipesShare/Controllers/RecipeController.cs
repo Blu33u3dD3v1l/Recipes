@@ -19,45 +19,30 @@ namespace RecipesShare.Controllers
         [HttpGet]
         public IActionResult AddRecipe()
         {
-            var model = new RecipeModel();
-            model.Ingredients = new List<Ingredient>(); // Make sure to initialize the Ingredients list
+            var model = new RecipeModel();         
             return View(model);
             
         }
 
-        public async Task<IActionResult> AddRecipe([FromBody] RecipeModel model)
+        [HttpPost]
+        public async Task<IActionResult> AddRecipe(RecipeModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-
-            var thisId = User.GetId();
-
-            await recipeService.AddRecipeWithIngredientsAsync(thisId, model);
-
-            return Ok("Recipe added successfully.");
+            try
+            {
+                await recipeService.AddRecipeAsync(model);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddRecipe(RecipeModel model)
-        //{
-
-        //    var thisId = User.GetId();
-        //    try
-        //    {
-        //        await this.recipeService.AddRecipeAsync(thisId, model);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        ModelState.AddModelError(string.Empty, "Unexpected Error");
-        //        return View();
-        //    }
-
-        //    return RedirectToAction("Index", "Home");
-        //}
 
         [AllowAnonymous]
         public IActionResult RecipeView()

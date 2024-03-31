@@ -5,12 +5,10 @@ namespace RecipesShare.Data.Models
 {
     public class Ingredient
     {
-        public Ingredient()
-        {
-            RecipeIngredients = new List<RecipeIngredient>();
-        }
+      
         public int Id { get; set; }
         public string? Name { get; set; }
-        public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
+        public List<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
+
     }
 }

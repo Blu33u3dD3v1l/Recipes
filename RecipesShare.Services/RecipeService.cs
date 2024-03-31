@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NuGet.DependencyResolver;
 using RecipesShare.Data;
 using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
@@ -17,66 +16,46 @@ namespace RecipesShare.Services
             context = _context;
         }
 
-        //public async Task AddRecipeAsync(string id, RecipeModel model, List<int> ingredientIds)
-        //{
-
-        //    var recipe = new Recipe()
-        //    {
-        //        Name = model.Name,
-        //        Description = model.Description,
-        //        ImageUrl = model.ImageUrl,
-        //        CookTime = model.CookTime,
-        //        UserId = id,
-        //        RecipeIngredients = new List<RecipeIngredient>()
-
-        //    };
-
-        //    foreach (int ingredientId in ingredientIds)
-        //    {
-        //        var recipeIngredient = new RecipeIngredient
-        //        {
-        //            IngredientId = ingredientId
-        //        };
-
-        //        recipe.RecipeIngredients.Add(recipeIngredient);
-        //    }
-
-
-
-        //    await context.Recipes.AddAsync(recipe);
-        //    await context.SaveChangesAsync();
-
-            
-        //}
-
-        public async Task AddRecipeWithIngredientsAsync(string userId, RecipeModel model)
+        public async Task AddRecipeAsync(RecipeModel model)
         {
-            var recipe = new Recipe
-            {
-                Name = model.Name,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                CookTime = model.CookTime,
-                UserId = userId,
-                RecipeIngredients = new List<RecipeIngredient>()
-            };
 
-            foreach (var ingredient in model.Ingredients)
+            try
             {
-                var existingIngredient = await context.Ingredients.FirstOrDefaultAsync(i => i.Name == ingredient.Name);
-                if (existingIngredient != null)
+                var ingredient = new Ingredient
                 {
-                    recipe.RecipeIngredients.Add(new RecipeIngredient { Ingredient = existingIngredient });
-                }
-                else
+                    Name = model.Ingredient
+                };
+
+                context.Ingredients.Add(ingredient);
+
+                var recipe = new Recipe
                 {
-                    var newIngredient = new Ingredient { Name = ingredient.Name };
-                    recipe.RecipeIngredients.Add(new RecipeIngredient { Ingredient = newIngredient });
-                }
+                    Name = model.Name,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    CookTime = model.CookTime
+                };
+
+                context.Recipes.Add(recipe);
+
+                await context.SaveChangesAsync();
+
+                var recipeIngredient = new RecipeIngredient
+                {
+                    IngredientId = ingredient.Id,
+                    RecipeId = recipe.Id
+                };
+
+                context.RecipeIngredients.Add(recipeIngredient);
+
+                await context.SaveChangesAsync();
             }
-
-            await context.Recipes.AddAsync(recipe);
-            await context.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                // Handle the exception appropriately (e.g., log the error, provide user feedback)
+                // For debugging purposes, you can inspect the inner exception for more details
+                throw ex;
+            }
         }
 
         public async Task<IEnumerable<RecipeModel>> GetAllRecipesAsync()

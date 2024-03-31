@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace RecipesShare.Data.Migrations
 {
     /// <inheritdoc />
@@ -32,6 +30,13 @@ namespace RecipesShare.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AboutMe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sex = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -53,19 +58,16 @@ namespace RecipesShare.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recipes",
+                name: "Ingredients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CookTime = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,14 +176,50 @@ namespace RecipesShare.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Recipes",
-                columns: new[] { "Id", "CookTime", "Description", "ImageUrl", "Name" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
                 {
-                    { 1, 20, "Pizza is high on my list of favorite foods, and the classic pairing of pepperoni and melty cheese is my go-to. I turn to these pizza stuffed peppers to incorporate those flavors into an easy weeknight dinner. These tender boats of bell pepper piled high with ground beef, rice, and onion are dressed up even further with pepperoni and cheese. They’re bursting with flavor and can be customized in various ways to match your go-to pizza order.\r\n\r\nTo make them even more weeknight-friendly, you don’t need to cook the peppers before stuffing. Plus, you can assemble the peppers up to 24 hours ahead of time and stash them in the fridge before baking.", "https://www.simplyrecipes.com/thmb/RX2jA-_cA83GnwMwtoH_MWZ45Fs=/300x200/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Pizza-Stuffed-Peppers-LEAD-4-86dfd730b28b4c42a113066eb54a3fdf.jpg", "Peppers stuffed with minced meat and rice" },
-                    { 2, 25, "This recipe for teriyaki chicken noodle soup is an easy, intuitive way to liven up a classic chicken noodle soup. Marinate and sear juicy chicken thighs, then reuse that flavorful teriyaki-style sauce to build up a rich, hearty broth. I love all the textures in this soup: wide udon noodles and crisp-tender bok choy beautifully balance the rich teriyaki flavors.", "https://www.simplyrecipes.com/thmb/fVqUVoCgdL4lmutoomUjSyPXbW0=/450x300/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Teriyaki-Chicken-Noodle-Soup-LEAD-34c125bb3b224834b5cf30249cf1031f.jpg", "Teriyaki Chicken Noodle Soup" },
-                    { 3, 20, "Whether you’ve got some leftover challah from Shabbat dinner or you’re buying a loaf specifically to make French toast, it’s the most wonderful (and easy!) Saturday morning breakfast out there. \r\n\r\nChallah is the best bread for French toast, bar none. It’s sturdy enough to stand up to its custard soak and a shower of maple syrup, yet tender and fluffy enough to cut with a fork. Cooked in a generous amount of butter, the thick slices of challah become beautifully browned after just a few minutes in the skillet. ", "https://www.simplyrecipes.com/thmb/RX2jA-_cA83GnwMwtoH_MWZ45Fs=/300x200/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Pizza-Stuffed-Peppers-LEAD-4-86dfd730b28b4c42a113066eb54a3fdf.jpg", "Challah French Toast" }
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CookTime = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recipes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecipeIngredients",
+                columns: table => new
+                {
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    IngredientId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeIngredients", x => new { x.RecipeId, x.IngredientId });
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecipeIngredients_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -222,6 +260,16 @@ namespace RecipesShare.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipeIngredients_IngredientId",
+                table: "RecipeIngredients",
+                column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_UserId",
+                table: "Recipes",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -243,10 +291,16 @@ namespace RecipesShare.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "RecipeIngredients");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -8,7 +8,7 @@
     <h2 class="text-center mt-5 mb-4">You can add your recipe here.</h2>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form method="post">
+            <form method="post" asp-action="AddRecipe" asp-controller="Recipe">
                 <div class="form-group">
                     <label asp-for="@Model.Name">Recipe Name</label>
                     <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Enter recipe name">
@@ -20,37 +20,27 @@
                 <div class="form-group">
                     <label asp-for="@Model.ImageUrl">Recipe Image URL</label>
                     <input asp-for="@Model.ImageUrl" type="text" class="form-control" placeholder="Enter URL for recipe image">
-                </div>
+               </div>
                 
-                <div class="form-group" id="ingredientInputs">
-                    @if (Model.Ingredients != null)
-                    {
-                        @for (var i = 0; i < Model.Ingredients.Count; i++)
-                        {
-                            <div class="ingredient-input">
-                                <label asp-for="@Model.Ingredients[i].Name">Ingredient @(i + 1)</label>
-                                <input asp-for="@Model.Ingredients[i].Name" type="text" class="form-control" placeholder="Enter ingredient">
-                            </div>
-                        }
-                    }
-                </div>
-                <div class="form-group">
-                    @if (Model.Ingredients != null)
-                    {
-                        @for (var i = 0; i < Model.Ingredients.Count; i++)
-                        {
-                            <label asp-for="@Model.Ingredients[i].Name">Ingredient @(i + 1)</label>
-                            <input asp-for="@Model.Ingredients[i].Name" type="text" class="form-control" placeholder="Enter ingredient">
-                        }
-                    }
-                </div>
+                    <!-- Dynamically add input fields for ingredients -->
+                    <div class="form-group">
+                        <div class="ingredient-input">
+                            <label asp-for="@Model.Ingredient">Ingredient 1</label>
+                            <input asp-for="@Model.Ingredient" type="text" class="form-control" placeholder="Enter ingredient">
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn btn-success mt-3">Save</button>
-                <button type="submit" class="btn btn-primary" value="Add">Add Recipe</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Save Recipe</button>
+                </div>
+                    
             </form>
+           
         </div>
     </div>
 </div>
+
+
 
 
 @section Scripts {

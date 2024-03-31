@@ -6,7 +6,8 @@ namespace RecipesShare.Services.Interface
     {
 
         Task<IEnumerable<RecipeModel>> GetAllRecipesAsync();
-        Task AddRecipeWithIngredientsAsync(string userId, RecipeModel model);
+        Task AddRecipeAsync(RecipeModel model);
+
 
     }
 }

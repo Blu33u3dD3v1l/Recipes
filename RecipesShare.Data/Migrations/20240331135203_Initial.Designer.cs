@@ -12,8 +12,8 @@ using RecipesShare.Data;
 namespace RecipesShare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240330191655_Fluent")]
-    partial class Fluent
+    [Migration("20240331135203_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,12 +259,7 @@ namespace RecipesShare.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
                 });
@@ -300,49 +295,19 @@ namespace RecipesShare.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CookTime = 20,
-                            Description = "Pizza is high on my list of favorite foods, and the classic pairing of pepperoni and melty cheese is my go-to. I turn to these pizza stuffed peppers to incorporate those flavors into an easy weeknight dinner. These tender boats of bell pepper piled high with ground beef, rice, and onion are dressed up even further with pepperoni and cheese.",
-                            ImageUrl = "https://www.simplyrecipes.com/thmb/RX2jA-_cA83GnwMwtoH_MWZ45Fs=/300x200/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Pizza-Stuffed-Peppers-LEAD-4-86dfd730b28b4c42a113066eb54a3fdf.jpg",
-                            Name = "Peppers(meat and rice)"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CookTime = 25,
-                            Description = "This recipe for teriyaki chicken noodle soup is an easy, intuitive way to liven up a classic chicken noodle soup. Marinate and sear juicy chicken thighs, then reuse that flavorful teriyaki-style sauce to build up a rich, hearty broth. I love all the textures in this soup: wide udon noodles and crisp-tender bok choy beautifully balance the rich teriyaki flavors.",
-                            ImageUrl = "https://www.simplyrecipes.com/thmb/fVqUVoCgdL4lmutoomUjSyPXbW0=/450x300/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Teriyaki-Chicken-Noodle-Soup-LEAD-34c125bb3b224834b5cf30249cf1031f.jpg",
-                            Name = "Teriyaki Chicken Noodle Soup"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CookTime = 20,
-                            Description = "Whether you’ve got some leftover challah from Shabbat dinner or you’re buying a loaf specifically to make French toast, it’s the most wonderful (and easy!) Saturday morning breakfast out there. \r\n\r\nChallah is the best bread for French toast, bar none. It’s sturdy enough to stand up to its custard soak and a shower of maple syrup, yet tender and fluffy enough to cut.",
-                            ImageUrl = "https://www.simplyrecipes.com/thmb/7gy-motpgtBFgATUrVcU4mPyX0M=/450x300/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Challah-French-Toast-LEAD-11-93f90c8d48324cc28a583180f9d8f32d.jpg",
-                            Name = "Challah French Toast"
-                        });
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Ingredient")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
 
-                    b.HasKey("IngredientId", "RecipeId");
+                    b.HasKey("RecipeId", "IngredientId");
 
-                    b.HasIndex("RecipeId");
+                    b.HasIndex("IngredientId");
 
                     b.ToTable("RecipeIngredients");
                 });
@@ -398,17 +363,6 @@ namespace RecipesShare.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>
-                {
-                    b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-                });
-
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
                     b.HasOne("RecipesShare.Data.Models.ApplicationUser", "User")
@@ -420,18 +374,31 @@ namespace RecipesShare.Data.Migrations
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
+                    b.HasOne("RecipesShare.Data.Models.Ingredient", "Ingredient")
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Ingredient");
+
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>
+                {
+                    b.Navigation("RecipeIngredients");
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
-                    b.Navigation("Ingredients");
+                    b.Navigation("RecipeIngredients");
                 });
 #pragma warning restore 612, 618
         }

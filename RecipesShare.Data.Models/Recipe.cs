@@ -9,10 +9,7 @@ namespace RecipesShare.Data.Models
     public class Recipe
     {
 
-        public Recipe()
-        {
-            RecipeIngredients = new List<RecipeIngredient>();
-        }
+    
         public int Id { get; set; }
 
         public string Name { get; set; } = null!;
@@ -27,7 +24,7 @@ namespace RecipesShare.Data.Models
         [ForeignKey(nameof(UserId))]
         public ApplicationUser? User { get; set; }
 
-        public List<RecipeIngredient> RecipeIngredients { get; set; }
+        public List<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 
 
     }

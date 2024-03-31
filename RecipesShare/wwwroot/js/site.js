@@ -13,25 +13,19 @@ toggleButtons.forEach(button => {
 });
 
 function addIngredient() {
-    var ingredientInputs = document.getElementById('ingredientInputs');
-    var newInput = document.createElement('div');
-    newInput.className = 'form-group';
-    newInput.innerHTML = '<label for="ingredientInput">Add Ingredient:</label>' +
-        '<input type="text" class="form-control" name="ingredient" placeholder="Enter ingredient">';
-    ingredientInputs.appendChild(newInput);
+    var container = document.getElementById('ingredientsContainer');
+    var index = container.children.length; // Next index for new ingredient
+
+    var newIngredientHtml = `
+            <div>
+                <input type="text" name="Ingredients[${index}].Name" />
+                <button type="button" onclick="removeIngredient(${index})">Remove</button>
+            </div>
+        `;
+    container.insertAdjacentHTML('beforeend', newIngredientHtml);
 }
 
-function saveIngredients() {
-    var ingredientInputs = document.getElementsByName('ingredient');
-    var ingredientList = document.getElementById('ingredientList');
-    ingredientList.innerHTML = ''; // Clear previous list
-    for (var i = 0; i < ingredientInputs.length; i++) {
-        var ingredient = ingredientInputs[i].value.trim();
-        if (ingredient !== '') {
-            var listItem = document.createElement('li');
-            listItem.className = 'list-group-item';
-            listItem.textContent = ingredient;
-            ingredientList.appendChild(listItem);
-        }
-    }
+function removeIngredient(index) {
+    var container = document.getElementById('ingredientsContainer');
+    container.removeChild(container.children[index]);
 }
