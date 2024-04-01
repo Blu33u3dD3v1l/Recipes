@@ -33,9 +33,22 @@
                             <input asp-for="@Model.Country" type="text" class="form-control" id="Country" value="New York">
                         </div>
                         <div class="form-group">
-                            <label asp-for="@Model.AboutMe">About Me</label>
-                            <textarea asp-for="@Model.AboutMe" class="form-control" id="aboutMe" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur.</textarea>
+                            <label asp-for="@Model.PhoneNumber">Phone</label>
+                            <input asp-for="@Model.PhoneNumber" class="form-control" id="aboutMe" rows="3"></input>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.AboutMe">About Me</label>
+                            <textarea asp-for="@Model.AboutMe" class="form-control" id="aboutMe" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.SocialMediaProfileUrl">Social Media Link</label>
+                            <input asp-for="@Model.SocialMediaProfileUrl" class="form-control" id="aboutMe" rows="3"></input>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.AdditionalInfo">Additional Info</label>
+                            <textarea asp-for="@Model.AdditionalInfo" class="form-control" id="aboutMe" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur.</textarea>
+                        </div>
+                       
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

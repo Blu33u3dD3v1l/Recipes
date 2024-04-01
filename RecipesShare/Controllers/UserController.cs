@@ -54,6 +54,7 @@ namespace RecipesShare.Controllers
         {
 
             var id = User.GetId();
+            
 
             await userService.AddUserInformation(id, model);
 

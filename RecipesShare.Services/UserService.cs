@@ -35,12 +35,11 @@ namespace RecipesShare.Services
             existingUser.Location = model.Location;
             existingUser.Sex = model.Sex;
             existingUser.Country = model.Country;
+            existingUser.SocialMediaProfileUrl = model.SocialMediaProfileUrl;
+            existingUser.AdditionalInfo = model.AdditionalInfo;
+            existingUser.PhoneNumber = model.PhoneNumber;
             
-           
             
-
-            
-
             await context.SaveChangesAsync();
 
             

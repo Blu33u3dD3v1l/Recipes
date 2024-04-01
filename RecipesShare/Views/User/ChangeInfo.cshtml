@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Sex">Sex</label>
-                            <input asp-for="Sex" type="text" class="form-control" id="location">
+                            <input asp-for="Sex" type="text" class="form-control" id="sex">
                             <span asp-validation-for="@Model.Sex" class="small text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -34,14 +34,30 @@
                             <span asp-validation-for="@Model.Location" class="small text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="PhoneNumber">PhoneNumber</label>
+                            <input asp-for="PhoneNumber" type="text" class="form-control" id="phoneNumber"></input>
+                            <span asp-validation-for="@Model.PhoneNumber" class="small text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="Country">Country</label>
                             <input asp-for="Country" type="text" class="form-control" id="Country">
                             <span asp-validation-for="@Model.Country" class="small text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="AboutMe">About Me</label>
-                            <textarea asp-for="AboutMe" class="form-control" id="aboutMe" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus odio eget risus luctus, a dictum libero efficitur.</textarea>
+                            <textarea asp-for="AboutMe" class="form-control" id="aboutMe" rows="3"></textarea>
                             <span asp-validation-for="@Model.AboutMe" class="small text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SocialMediaProfileUrl">SocialMedia</label>
+                            <input asp-for="SocialMediaProfileUrl" class="form-control" id="socialMediaProfilUrl"></input>
+                            <span asp-validation-for="@Model.SocialMediaProfileUrl" class="small text-danger"></span>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label asp-for="AdditionalInfo">AdditionalInfo</label>
+                            <textarea asp-for="AdditionalInfo" class="form-control" id="aboutMe" rows="3"></textarea>
+                            <span asp-validation-for="@Model.AdditionalInfo" class="small text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>

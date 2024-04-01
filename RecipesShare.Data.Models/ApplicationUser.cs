@@ -11,7 +11,9 @@ namespace RecipesShare.Data.Models
         public string? Location { get; set; }
         public string? AboutMe { get; set; }
         public string? Country { get; set; }
-        public string? Sex { get; set; }
+        public string? Sex { get; set; }       
+        public string? SocialMediaProfileUrl { get; set; }
+        public string? AdditionalInfo { get; set; }
         public List<Recipe> Recipes { get; set; } = new List<Recipe>();
         
 
