@@ -1,0 +1,67 @@
+﻿@model RecipesShare.Data.Models.ApplicationUser
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@Model.ImageUrl" class="card-img-top thumbnail" alt="Placeholder Image">
+                <div class="card-body">
+                    <h5 class="card-title">Picture 1</h5>
+                    <p class="card-text">This is a sample picture.</p>
+                    <button class="btn btn-primary change-view" data-toggle="modal" data-target="#pictureModal">View Full Size</button>                
+                    <button class="btn btn-primary change-image" data-toggle="modal" data-target="#changeImageModal">Change Image</button>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>
+
+
+<div class="modal fade" id="pictureModal" tabindex="-1" aria-labelledby="pictureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pictureModalLabel">Full Size Picture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="@Model.ImageUrl" class="img-fluid" alt="Full Size Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="changeImageModal" tabindex="-1" aria-labelledby="changeImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeImageModalLabel">Change Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for uploading or providing a link to a new image -->
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="imageUpload">Upload Image</label>
+                        <input type="file" class="form-control-file" id="imageUpload" name="imageFile" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Or provide a link to an image</label>
+                        <input type="text" class="form-control" id="imageUrl" name="imageUrl">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="saveImage">Save changes</button>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+

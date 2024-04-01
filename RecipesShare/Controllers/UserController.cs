@@ -79,5 +79,39 @@ namespace RecipesShare.Controllers
             return RedirectToAction("Profile", "User");
         }
 
+        public async Task<IActionResult> ChangePicture()
+        {
+            var currId = User.GetId();
+            var result = await userService.GetUserImageForChangeAsync(currId);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePicture(string imageUrl, IFormFile imageFile)
+        {
+
+            var userId = User.GetId();
+            try
+            {
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("User ID is required.");
+                }
+
+                if (string.IsNullOrEmpty(imageUrl) && imageFile == null)
+                {
+                    return BadRequest("Either imageUrl or imageFile must be provided.");
+                }
+
+                string newImageUrl = await userService.ChangeImageAsync(imageUrl, imageFile, userId);
+                return RedirectToAction("Profile", "User");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
     }
 }

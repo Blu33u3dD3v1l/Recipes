@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 using RecipesShare.Data;
+using RecipesShare.Data.Models;
 using RecipesShare.Services.Interface;
 
 
@@ -42,6 +44,51 @@ namespace RecipesShare.Services
             await context.SaveChangesAsync();
 
             
+        }
+
+        public async Task<string> ChangeImageAsync(string imageUrl, IFormFile imageFilePath, string id)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                throw new ArgumentException("User not found.");
+            }
+
+            string newImageUrl;
+
+
+            if (!string.IsNullOrEmpty(imageUrl) && imageFilePath == null)
+            {
+                
+                user.ImageUrl = imageUrl;
+                newImageUrl = imageUrl;
+            }
+            else if (imageFilePath != null && string.IsNullOrEmpty(imageUrl))
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFilePath.FileName);
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFilePath.CopyToAsync(fileStream);
+                }
+
+                user.ImageUrl = "/images/" + uniqueFileName;
+                newImageUrl = user.ImageUrl;
+            }
+            else
+            {
+                throw new ArgumentException("ImageUrl or ImageFilePath must be provided.");
+            }
+
+           
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+
+            return newImageUrl;
         }
 
         public async Task ChangeUserInformation(string id, Models.Home.ApplicationUser model)
@@ -109,6 +156,19 @@ namespace RecipesShare.Services
                 return false;
             }     
             
+        }
+
+        public async Task<Data.Models.ApplicationUser> GetUserImageForChangeAsync(string id)
+        {
+            var thisUser = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(thisUser == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            
+            return thisUser;
         }
 
         public async Task<Data.Models.ApplicationUser> RealUserTake(string id)
