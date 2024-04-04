@@ -17,21 +17,23 @@ namespace RecipesShare.Data
         public DbSet<Ingredient> Ingredients { get; set; } = null!;
         public DbSet<ApplicationUser> ApplicationUser { get; set; } = null!;
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+        public DbSet<UserRecipe> UserRecipes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<RecipeIngredient>()
                 .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
 
-            builder.Entity<RecipeIngredient>()
-                .HasOne(ri => ri.Recipe)
-                .WithMany(r => r.RecipeIngredients)
-                .HasForeignKey(ri => ri.RecipeId);
+            builder.Entity<UserRecipe>()
+                .HasKey(x => new { x.UserId, x.RecipeId });
 
-            builder.Entity<RecipeIngredient>()
-                .HasOne(ri => ri.Ingredient)
-                .WithMany(i => i.RecipeIngredients)
-                .HasForeignKey(ri => ri.IngredientId);
+            builder.Entity<UserRecipe>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRecipes)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            
             builder.ApplyConfiguration(new RecipeConfiguration());
 
             base.OnModelCreating(builder);

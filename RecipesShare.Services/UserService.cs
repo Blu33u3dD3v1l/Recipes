@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 using RecipesShare.Data;
 using RecipesShare.Data.Models;
+using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
-
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RecipesShare.Services
 {
@@ -106,13 +107,17 @@ namespace RecipesShare.Services
             existingUser.Location = model.Location;
             existingUser.Sex = model.Sex;
             existingUser.Country = model.Country;
-
+            existingUser.PhoneNumber = model.PhoneNumber;
+            existingUser.SocialMediaProfileUrl = model.SocialMediaProfileUrl;
+            existingUser.AdditionalInfo = model.AdditionalInfo;
 
 
 
 
             await context.SaveChangesAsync();
         }
+
+        
 
         public async Task<Data.Models.ApplicationUser> GetEditUserAsync(string id)
         {
@@ -134,6 +139,10 @@ namespace RecipesShare.Services
                 ImageUrl = currentUser.ImageUrl,
                 Location = currentUser.Location,
                 Sex = currentUser.Sex,
+                AdditionalInfo = currentUser.AdditionalInfo,
+                SocialMediaProfileUrl = currentUser.SocialMediaProfileUrl,
+                PhoneNumber = currentUser.PhoneNumber,
+                
             };
         }
 

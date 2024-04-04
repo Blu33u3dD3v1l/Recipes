@@ -264,7 +264,7 @@ namespace RecipesShare.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
@@ -303,7 +303,7 @@ namespace RecipesShare.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
 
                     b.HasData(
                         new
@@ -343,11 +343,31 @@ namespace RecipesShare.Data.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("RecipeId", "IngredientId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("RecipeIngredients");
+                    b.ToTable("RecipeIngredients", (string)null);
+                });
+
+            modelBuilder.Entity("RecipesShare.Data.Models.UserRecipe", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("UserRecipes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -412,6 +432,10 @@ namespace RecipesShare.Data.Migrations
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
+                    b.HasOne("RecipesShare.Data.Models.ApplicationUser", null)
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("RecipesShare.Data.Models.Ingredient", "Ingredient")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
@@ -429,9 +453,32 @@ namespace RecipesShare.Data.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("RecipesShare.Data.Models.UserRecipe", b =>
+                {
+                    b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
+                        .WithMany("UserRecipes")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipesShare.Data.Models.ApplicationUser", "User")
+                        .WithMany("UserRecipes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecipesShare.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("RecipeIngredients");
+
                     b.Navigation("Recipes");
+
+                    b.Navigation("UserRecipes");
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>
@@ -442,6 +489,8 @@ namespace RecipesShare.Data.Migrations
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
                     b.Navigation("RecipeIngredients");
+
+                    b.Navigation("UserRecipes");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,8 @@ namespace RecipesShare.Services.Interface
         Task ChangeUserInformation(string id, Models.Home.ApplicationUser model);
         Task<Data.Models.ApplicationUser> GetUserImageForChangeAsync(string id);
         Task<string> ChangeImageAsync(string imageUrl, IFormFile imageFilePath, string id);
+       
+       
 
     }
 }

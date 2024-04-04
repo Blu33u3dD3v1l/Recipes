@@ -18,12 +18,13 @@ namespace RecipesShare.Services
 
         public async Task AddRecipeAsync(string id, RecipeModel model)
         {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
-            try
+            if(user?.ImageUrl != null && user.FirstName != null && user.LastName != null && user.Sex != null && user.Location != null && user.Country != null && user.PhoneNumber != null)
             {
                 var ingredient = new Ingredient
                 {
-                    Name = model.Ingredient
+                    Name = model.Ingredients
                 };
 
                 context.Ingredients.Add(ingredient);
@@ -37,9 +38,9 @@ namespace RecipesShare.Services
                     Instructions = model.Instructions,
                     Author = model.Author,
                     UserId = id,
-                    
-                    
                 };
+
+                await context.SaveChangesAsync();
 
                 context.Recipes.Add(recipe);
 
@@ -51,15 +52,25 @@ namespace RecipesShare.Services
                     RecipeId = recipe.Id
                 };
 
+
                 context.RecipeIngredients.Add(recipeIngredient);
+
+                var userRecipe = new UserRecipe
+                {
+                    UserId = id,
+                    RecipeId = recipe.Id
+                };
+
+                context.UserRecipes.Add(userRecipe);
 
                 await context.SaveChangesAsync();
             }
-            catch (Exception)
+            else
             {
-               
-                throw new Exception();
+                throw new Exception("Fill Identity first!");
             }
+
+            
         }
 
         public async Task<IEnumerable<RecipeModel>> GetAllRecipesAsync()
@@ -83,18 +94,59 @@ namespace RecipesShare.Services
         {
 
             var recipe = await context.Recipes
-            .Include(x => x.User)
+            .Include(x => x.UserRecipes)
             .Include(r => r.RecipeIngredients)
-            .ThenInclude(ri => ri.Ingredient)  
-            
+            .ThenInclude(ri => ri.Ingredient)
             .FirstOrDefaultAsync(r => r.Id == id);
 
-            if(recipe == null)
+            if (recipe == null)
             {
                 throw new Exception();
             }
 
             return recipe;
         }
+
+
+        public async Task<IEnumerable<RecipeModel>> GetMyRecipesAsync(string id)
+        {
+            var user = await context.Users
+                .Where(u => u.Id == id)
+                .Include(u => u.UserRecipes)              
+                  .ThenInclude(ur => ur.Recipe)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+            
+            return user!.UserRecipes!
+                .Where(m => m.Recipe != null) 
+                .Select(m => new RecipeModel()
+                {
+                    Id = m.Recipe!.Id,
+                    Name = m.Recipe.Name,
+                    ImageUrl = m.Recipe.ImageUrl,
+                    Author = m.Recipe.Author,
+                    CookTime = m.Recipe.CookTime,
+                    Description = m.Recipe.Description,
+                    UserId = id,
+                    Instructions = m.Recipe.Instructions,
+                });
+        }
+
+        public async Task<Data.Models.ApplicationUser> GetAppUser(string id)
+        {
+            var thisUser = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (thisUser == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return thisUser;
+        }
     }
 }
+
+

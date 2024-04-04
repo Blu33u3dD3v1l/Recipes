@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RecipesShare.Data.Models
+﻿namespace RecipesShare.Data.Models
 {
     public class RecipeIngredient
     {
         public int RecipeId { get; set; }
-        public Recipe? Recipe { get; set; }
+        public Recipe Recipe { get; set; } = null!;
         public int IngredientId { get; set; }
-        public Ingredient? Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; } = null!;
     }
 }

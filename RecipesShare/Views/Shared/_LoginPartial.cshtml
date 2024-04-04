@@ -19,6 +19,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">                      
                         <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="AddRecipe">Add Recipe</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Recipe" asp-action="MyRecipes">My Recipes</a>
                         <div class="dropdown-divider"></div>
                         <form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             <button style="color: black; margin-left: 20px; font-weight: 500" type="submit" class="log-out btn btn-link">Logout</button>

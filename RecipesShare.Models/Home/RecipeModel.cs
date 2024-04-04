@@ -17,8 +17,11 @@ namespace RecipesShare.Models.Home
 
         public int CookTime { get; set; }
         public string? Author { get; set; }
+        public string? UserId { get; set; }
 
-        public string? Ingredient { get; set; } 
+        public ApplicationUser? User {  get; set; }
+
+        public string? Ingredients { get; set; }
         public string? Instructions { get; set; }
 
     }

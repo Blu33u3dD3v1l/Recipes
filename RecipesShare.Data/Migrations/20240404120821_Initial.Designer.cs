@@ -12,7 +12,7 @@ using RecipesShare.Data;
 namespace RecipesShare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240331135203_Initial")]
+    [Migration("20240404120821_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -173,6 +173,9 @@ namespace RecipesShare.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -228,6 +231,9 @@ namespace RecipesShare.Data.Migrations
                     b.Property<string>("Sex")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SocialMediaProfileUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -272,6 +278,9 @@ namespace RecipesShare.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CookTime")
                         .HasColumnType("int");
 
@@ -281,6 +290,9 @@ namespace RecipesShare.Data.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructions")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -305,11 +317,31 @@ namespace RecipesShare.Data.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("RecipeId", "IngredientId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("IngredientId");
 
                     b.ToTable("RecipeIngredients");
+                });
+
+            modelBuilder.Entity("RecipesShare.Data.Models.UserRecipe", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("UserRecipes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -374,6 +406,10 @@ namespace RecipesShare.Data.Migrations
 
             modelBuilder.Entity("RecipesShare.Data.Models.RecipeIngredient", b =>
                 {
+                    b.HasOne("RecipesShare.Data.Models.ApplicationUser", null)
+                        .WithMany("RecipeIngredients")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("RecipesShare.Data.Models.Ingredient", "Ingredient")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
@@ -389,6 +425,32 @@ namespace RecipesShare.Data.Migrations
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipesShare.Data.Models.UserRecipe", b =>
+                {
+                    b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipesShare.Data.Models.ApplicationUser", "User")
+                        .WithMany("UserRecipes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecipesShare.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("RecipeIngredients");
+
+                    b.Navigation("UserRecipes");
                 });
 
             modelBuilder.Entity("RecipesShare.Data.Models.Ingredient", b =>

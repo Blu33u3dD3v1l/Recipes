@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
 using RecipesShare.Services;
 using RecipesShare.Services.Interface;
@@ -17,11 +16,33 @@ namespace RecipesShare.Controllers
             => recipeService = _recipeService;
 
         [HttpGet]
-        public IActionResult AddRecipe()
+        public async Task<IActionResult> AddRecipe()
         {
-            var model = new RecipeModel();         
-            return View(model);
-            
+
+            RecipeModel m = new RecipeModel();
+
+            var userId = User.GetId();
+            var user = await recipeService.GetAppUser(userId);
+           
+           
+           
+            if (user?.ImageUrl != null &&
+                user.FirstName != null &&
+                user.LastName != null &&
+                user.Sex != null &&
+                user.Location != null &&
+                user.Country != null &&
+                user.PhoneNumber != null)
+            {
+              
+               m = new RecipeModel();
+               return View(m);
+
+            }
+            else
+            {
+                return RedirectToAction("ProfileFill", "User");
+            }
         }
 
         [HttpPost]
@@ -39,9 +60,9 @@ namespace RecipesShare.Controllers
                 await recipeService.AddRecipeAsync(thisId, model);
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return RedirectToAction("ProfileFill","User");
             }
         }
 
@@ -58,5 +79,13 @@ namespace RecipesShare.Controllers
             return View(recipe);
         }
 
+        public async Task<IActionResult> MyRecipes()
+        {
+
+            var myId = User.GetId();
+            var model = await recipeService.GetMyRecipesAsync(myId);
+            return View(model);
+
+        }
     }
 }
