@@ -43,7 +43,7 @@ namespace RecipesShare.Services
                     CookTime = model.CookTime,
                     Instructions = model.Instructions,
                     Author = model.Author,
-                    Created = DateOnly.FromDateTime(DateTime.UtcNow),
+                    Created = DateOnly.FromDateTime(DateTime.Today),
                     UserId = id,
                 };
 
