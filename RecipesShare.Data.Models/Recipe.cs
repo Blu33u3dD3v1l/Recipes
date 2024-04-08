@@ -23,6 +23,7 @@ namespace RecipesShare.Data.Models
 
         public string? Instructions { get; set; }
         public DateOnly Created { get; set; }
+        public int Edited { get; set; }
 
         public List<RecipeIngredient> RecipeIngredients { get; set; } = new 
         List<RecipeIngredient>();

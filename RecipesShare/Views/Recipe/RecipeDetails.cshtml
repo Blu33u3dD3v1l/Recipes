@@ -19,6 +19,7 @@
                         </div>
                         <div class="col">
                             <p class="mb-0">By <span class="author-name">Admin</span></p>
+                            
                             <p class="text-muted">Created @Model?.Created.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture) </p>
                         </div>
                     </div>
@@ -34,7 +35,15 @@
                         </div>
                         <div class="col">
                             <p class="mb-0">By <span class="author-name">@Model?.User?.FirstName @Model?.User?.LastName</span></p>
-                            <p class="text-muted">Created @Model?.Created.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            @if(Model?.Edited == 0)
+                            {
+                                <p class="text-muted">Created @Model?.Created.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted">Updated @Model?.Created.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            }
+
                         </div>
                     </div>
                 </div>

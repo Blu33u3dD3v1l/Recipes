@@ -219,6 +219,7 @@ namespace RecipesShare.Services
             ingredient!.Name = model.Ingredients;
             var createdDate = recipe.Created;
             var formattedCreatedDate = createdDate.ToString("MMMM d, yyyy", CultureInfo.InvariantCulture);
+            recipe.Edited++;
             
 
             await context.SaveChangesAsync();
