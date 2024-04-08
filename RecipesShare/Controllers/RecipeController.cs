@@ -70,6 +70,9 @@ namespace RecipesShare.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RecipeDetails(int id)
         {
+
+            var user = User.GetId();
+
             var recipe = await recipeService.GetRecipeWithIngredientsAsync(id);
             if (recipe == null)
             {
@@ -83,6 +86,7 @@ namespace RecipesShare.Controllers
         {
 
             var myId = User.GetId();
+            var a = User.FindFirst(myId);
             var model = await recipeService.GetMyRecipesAsync(myId);
             return View(model);
 

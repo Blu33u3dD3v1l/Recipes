@@ -39,6 +39,7 @@ namespace RecipesShare.Services
             existingUser.SocialMediaProfileUrl = model.SocialMediaProfileUrl;
             existingUser.AdditionalInfo = model.AdditionalInfo;
             existingUser.PhoneNumber = model.PhoneNumber;
+          
             
             
             await context.SaveChangesAsync();

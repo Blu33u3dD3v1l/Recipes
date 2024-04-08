@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RecipesShare.Data;
 using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
+using System.Globalization;
 
 namespace RecipesShare.Services
 {
@@ -38,6 +42,7 @@ namespace RecipesShare.Services
                     CookTime = model.CookTime,
                     Instructions = model.Instructions,
                     Author = model.Author,
+                    Created = DateTime.Now,
                     UserId = id,
                 };
 
@@ -76,6 +81,9 @@ namespace RecipesShare.Services
 
         public async Task<IEnumerable<RecipeModel>> GetAllRecipesAsync()
         {
+
+
+
             var recipes = await context.Recipes
                .Select(x => new RecipeModel()
                {
@@ -84,7 +92,7 @@ namespace RecipesShare.Services
                    ImageUrl = x.ImageUrl,
                    Description = x.Description,
                    CookTime = x.CookTime,
-
+                  
 
                }).ToListAsync();
 
@@ -94,10 +102,12 @@ namespace RecipesShare.Services
         public async Task<Recipe> GetRecipeWithIngredientsAsync(int id)
         {
 
+            
             var recipe = await context.Recipes
             .Include(x => x.UserRecipes)
-            .Include(r => r.RecipeIngredients)
-            .ThenInclude(ri => ri.Ingredient)
+            .Include(r => r.RecipeIngredients)            
+            .ThenInclude(ri => ri.Ingredient) 
+            .Include(x => x.User)
             .FirstOrDefaultAsync(r => r.Id == id);
 
             if (recipe == null)
@@ -134,6 +144,7 @@ namespace RecipesShare.Services
                     Description = m.Recipe.Description,
                     UserId = id,
                     Instructions = m.Recipe.Instructions,
+                    Created = m.Recipe.Created,
                 });
         }
 
@@ -194,14 +205,15 @@ namespace RecipesShare.Services
 
             var ingredient = recipe?.RecipeIngredients?.FirstOrDefault()?.Ingredient;
            
-
-            recipe!.Author = model.Author;
+            recipe!.Name = model.Name;
+            recipe.Author = model.Author;
             recipe.Instructions = model.Instructions;
             recipe.CookTime = model.CookTime;
             recipe.Description = model.Description;
             recipe.Id = id;
             recipe.ImageUrl = model.ImageUrl;
             ingredient!.Name = model.Ingredients;
+            recipe.Created = DateTime.Now;
             
             await context.SaveChangesAsync();
             

@@ -1,7 +1,11 @@
 ﻿@model RecipesShare.Data.Models.Recipe
 
+
 @{
     ViewBag.Title = "Recipes Details";
+
+    
+
 }
 
 <div class="container">
@@ -10,43 +14,40 @@
             @if (Model.Id == 1 || Model.Id == 2 || Model.Id == 3)
             {
                 <h1 class="text-center mb-4">Delicious Recipe</h1>
-                <div class="author-section mb-4">
-                    <h6 style="margin-left: 10px">Author:</h6>
+                <div class="author-section mb-4">                   
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS9WDX7JlmoXx1-KXqPeJAwiS0xWGDmjBEWw&usqp=CAU" class="rounded-circle" alt="Author Image" style="width: 70px; height: 70px;">
                         </div>
                         <div class="col">
-                            <p class="mb-0">Admin</p>
-                            <p class="text-muted">Chefs & Food Enthusiasts</p>
+                            <p class="mb-0">By <span class="author-name">Admin</span></p>
+                            <p class="text-muted">@Model.Created</p>
                         </div>
                     </div>
                 </div>
             }
             else
             {
-                <h1 class="text-center mb-4">Delicious Recipe</h1>
-                <div class="author-section mb-4">
-                    <h6>Author:</h6>
+                <h1 class="text-center mb-4">@Model.Name</h1>
+                <div class="author-section mb-4">                 
                     <div class="row align-items-center">
                         <div class="col-auto">
-                            <img src="@Model.User?.ImageUrl" class="rounded-circle" alt="Author Image" style="width: 50px; height: 50px;">
+                            <img src="@Model?.User?.ImageUrl" class="rounded-circle" alt="Author Image" style="width: 50px; height: 50px;">
                         </div>
                         <div class="col">
-                            <p class="mb-0">@Model.User?.FirstName @Model.User?.LastName</p>
-                            <p class="text-muted">Chefs & Food Enthusiasts</p>
+                            <p class="mb-0">By <span class="author-name">@Model?.User?.FirstName @Model?.User?.LastName</span></p>
+                            <p class="text-muted">@Model.Created</p>
                         </div>
                     </div>
                 </div>
             }
             
             <div class="card">
-                <img src="@Model.ImageUrl" class="card-img-top" alt="Recipe Image">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.Name</h5>
-                    <p class="card-text">@Model.Description</p>
+                <img src="@Model?.ImageUrl" class="card-img-top" alt="Recipe Image">
+                <div class="card-body">               
+                    <p class="card-text">@Model?.Description</p>
                     <h6>Ingredients:</h6>
-                    @foreach (var item in Model.RecipeIngredients)
+                    @foreach (var item in Model!.RecipeIngredients)
                     {
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">@item.Ingredient?.Name</li>
@@ -57,6 +58,9 @@
                     <h6 class="mt-3">Instructions:</h6>                  
                     <p>@Model.Instructions</p>
                 </div>
+            </div>
+            <div class="mt-3">
+                <p class="card-text"><strong>Cook Time:</strong> @Model.CookTime minutes</p>
             </div>
         </div>
     </div>
