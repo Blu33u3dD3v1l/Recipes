@@ -1,31 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RecipesShare.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace RecipesShare.Data.Models
+namespace RecipesShare.Models.Home
 {
-    public class Recipe
+    public class EditRecipeModel
     {
-
-        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; } = null!;
 
+        [MaxLength(364)]
         public string Description { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
 
         public int CookTime { get; set; }
-
         public string? Author { get; set; }
         public string? UserId { get; set; }
 
         public ApplicationUser? User { get; set; }
 
+        public IQueryable<Ingredient>? Ingredients { get; set; }
         public string? Instructions { get; set; }
-
-        public List<RecipeIngredient> RecipeIngredients { get; set; } = new 
-        List<RecipeIngredient>();
-        public List<UserRecipe> UserRecipes { get; set; } = new List<UserRecipe>();
-
     }
 }

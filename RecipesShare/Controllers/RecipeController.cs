@@ -87,5 +87,21 @@ namespace RecipesShare.Controllers
             return View(model);
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditRecipe(int id)
+        {
+            var model = await recipeService.GetEditRecipe(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRecipe(int id, RecipeModel model)
+        {
+           await recipeService.PostEditRecipe(id, model);
+
+           return RedirectToAction("Index","Home");
+        }
     }
 }

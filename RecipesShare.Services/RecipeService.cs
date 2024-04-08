@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RecipesShare.Data;
 using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
@@ -145,6 +146,65 @@ namespace RecipesShare.Services
             }
 
             return thisUser;
+        }
+
+     
+        public async Task<RecipeModel> GetEditRecipe(int id)
+        {
+
+            var currenrRecupe = await context.Recipes
+                .Include(x => x.RecipeIngredients)
+                 .ThenInclude(ri => ri.Ingredient)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(currenrRecupe == null)
+            {
+                throw new Exception();
+            }
+
+            var ingredient = currenrRecupe.RecipeIngredients.FirstOrDefault()?.Ingredient.Name;
+
+   
+            return new RecipeModel
+            {
+              Name = currenrRecupe.Name,
+              Author = currenrRecupe.Author,
+              CookTime = currenrRecupe.CookTime,
+              Description = currenrRecupe.Description,
+              Id = currenrRecupe.Id,
+              ImageUrl= currenrRecupe.ImageUrl,
+              Instructions = currenrRecupe.Instructions,
+              Ingredients = ingredient,
+            };
+
+        }
+
+        public async Task PostEditRecipe(int id, RecipeModel model)
+        {
+            var recipe = await context.Recipes
+                  .Include(x => x.RecipeIngredients)
+                   .ThenInclude(ri => ri.Ingredient)
+                  
+                  .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (recipe == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var ingredient = recipe?.RecipeIngredients?.FirstOrDefault()?.Ingredient;
+           
+
+            recipe!.Author = model.Author;
+            recipe.Instructions = model.Instructions;
+            recipe.CookTime = model.CookTime;
+            recipe.Description = model.Description;
+            recipe.Id = id;
+            recipe.ImageUrl = model.ImageUrl;
+            ingredient!.Name = model.Ingredients;
+            
+            await context.SaveChangesAsync();
+            
         }
     }
 }

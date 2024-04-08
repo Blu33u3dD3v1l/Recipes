@@ -18,8 +18,8 @@
                             <img src="@recipe.ImageUrl" class="card-img-top" alt="Recipe Image">
                             <div class="card-body">
                                 <h5 class="card-title">@recipe.Name</h5>
-                                <p class="card-text recipe-description d-none">@recipe.Description</p>
-                                <button class="btn btn-link toggle-description-btn descr">Description</button>
+                               @*  <p class="card-text recipe-description d-none">@recipe.Description</p> *@
+                                <a asp-route-id="@recipe.Id" asp-area="" asp-controller="Recipe" asp-action="EditRecipe" class="btn">Edit</a>
                                 <a asp-area="" asp-controller="Recipe" asp-action="RecipeDetails" asp-route-id="@recipe.Id" class="btn btn-primary recipeview">View Recipe</a>
                             </div>
                         </div>
