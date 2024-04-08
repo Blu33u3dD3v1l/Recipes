@@ -18,7 +18,7 @@ namespace RecipesShare.Services
         {
             context = _context;
         }
-        public async Task AddUserInformation(string id, Models.Home.ApplicationUser model)
+        public async Task AddUserInformation(string id, Data.Models.ApplicationUser model)
         {
 
 
@@ -92,7 +92,7 @@ namespace RecipesShare.Services
             return newImageUrl;
         }
 
-        public async Task ChangeUserInformation(string id, Models.Home.ApplicationUser model)
+        public async Task ChangeUserInformation(string id, Data.Models.ApplicationUser model)
         {
             var existingUser = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (existingUser == null)

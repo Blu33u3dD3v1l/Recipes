@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol;
 using RecipesShare.Data;
 using RecipesShare.Data.Models;
 using RecipesShare.Models.Home;
@@ -42,7 +43,7 @@ namespace RecipesShare.Services
                     CookTime = model.CookTime,
                     Instructions = model.Instructions,
                     Author = model.Author,
-                    Created = DateTime.Now,
+                    Created = DateOnly.FromDateTime(DateTime.UtcNow),
                     UserId = id,
                 };
 
@@ -81,9 +82,8 @@ namespace RecipesShare.Services
 
         public async Task<IEnumerable<RecipeModel>> GetAllRecipesAsync()
         {
-
-
-
+            
+            
             var recipes = await context.Recipes
                .Select(x => new RecipeModel()
                {
@@ -92,10 +92,12 @@ namespace RecipesShare.Services
                    ImageUrl = x.ImageUrl,
                    Description = x.Description,
                    CookTime = x.CookTime,
+                   Created = x.Created.ToString("MMMM dd, yyyy", CultureInfo.CurrentCulture),
                   
 
                }).ToListAsync();
 
+            
             return recipes;
         }
 
@@ -115,6 +117,7 @@ namespace RecipesShare.Services
                 throw new Exception();
             }
 
+            
             return recipe;
         }
 
@@ -132,6 +135,7 @@ namespace RecipesShare.Services
                 throw new ArgumentException("Invalid user ID");
             }
             
+            
             return user!.UserRecipes!
                 .Where(m => m.Recipe != null) 
                 .Select(m => new RecipeModel()
@@ -144,7 +148,7 @@ namespace RecipesShare.Services
                     Description = m.Recipe.Description,
                     UserId = id,
                     Instructions = m.Recipe.Instructions,
-                    Created = m.Recipe.Created,
+                    Created = m.Recipe.Created.ToString(),
                 });
         }
 
@@ -213,8 +217,10 @@ namespace RecipesShare.Services
             recipe.Id = id;
             recipe.ImageUrl = model.ImageUrl;
             ingredient!.Name = model.Ingredients;
-            recipe.Created = DateTime.Now;
+            var createdDate = recipe.Created;
+            var formattedCreatedDate = createdDate.ToString("MMMM d, yyyy", CultureInfo.InvariantCulture);
             
+
             await context.SaveChangesAsync();
             
         }

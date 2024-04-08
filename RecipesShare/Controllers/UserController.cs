@@ -50,7 +50,7 @@ namespace RecipesShare.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileFill(ApplicationUser model)
+        public async Task<IActionResult> ProfileFill(Data.Models.ApplicationUser model)
         {
 
             var id = User.GetId();
@@ -71,7 +71,7 @@ namespace RecipesShare.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeInfo(ApplicationUser model)
+        public async Task<IActionResult> ChangeInfo(Data.Models.ApplicationUser model)
         {
             var id = User.GetId();
 

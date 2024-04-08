@@ -23,9 +23,8 @@ namespace RecipesShare.Models.Home
 
         public string? Ingredients { get; set; }
         public string? Instructions { get; set; }
-        public DateTime? Created { get; set; }
-
+        public string? Created { get; set; }
+        
     }
 
- 
 }

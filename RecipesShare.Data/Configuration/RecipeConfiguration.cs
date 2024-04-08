@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RecipesShare.Data.Models;
+using System.Globalization;
 
 
 
@@ -27,10 +28,11 @@ namespace MyGymWeb.Data.Configuration
                 Description = "Pizza is high on my list of favorite foods, and the classic pairing of pepperoni and melty cheese is my go-to. I turn to these pizza stuffed peppers to incorporate those flavors into an easy weeknight dinner. These tender boats of bell pepper piled high with ground beef, rice, and onion are dressed up even further with pepperoni and cheese.",
                 CookTime = 20,
                 Author = "Admin",
-                
-                
-                
-            },
+                Created = DateOnly.FromDateTime(DateTime.UtcNow),
+
+
+
+        },
             new Recipe()
             {
                 Id = 2,
@@ -39,6 +41,7 @@ namespace MyGymWeb.Data.Configuration
                 Description = "This recipe for teriyaki chicken noodle soup is an easy, intuitive way to liven up a classic chicken noodle soup. Marinate and sear juicy chicken thighs, then reuse that flavorful teriyaki-style sauce to build up a rich, hearty broth. I love all the textures in this soup: wide udon noodles and crisp-tender bok choy beautifully balance the rich teriyaki flavors.",
                 CookTime = 25,
                 Author = "Admin",
+                Created = DateOnly.FromDateTime(DateTime.UtcNow),
 
             },
 
@@ -50,6 +53,7 @@ namespace MyGymWeb.Data.Configuration
                 Description = "Whether you’ve got some leftover challah from Shabbat dinner or you’re buying a loaf specifically to make French toast, it’s the most wonderful (and easy!) Saturday morning breakfast out there. \r\n\r\nChallah is the best bread for French toast, bar none. It’s sturdy enough to stand up to its custard soak and a shower of maple syrup, yet tender and fluffy enough to cut.",
                 CookTime = 20,
                 Author = "Admin",
+                Created = DateOnly.FromDateTime(DateTime.UtcNow),
 
 
             },

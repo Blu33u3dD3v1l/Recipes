@@ -22,7 +22,7 @@ namespace RecipesShare.Data.Models
         public ApplicationUser? User { get; set; }
 
         public string? Instructions { get; set; }
-        public DateTime? Created { get; set; }
+        public DateOnly Created { get; set; }
 
         public List<RecipeIngredient> RecipeIngredients { get; set; } = new 
         List<RecipeIngredient>();

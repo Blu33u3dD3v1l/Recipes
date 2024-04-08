@@ -12,7 +12,7 @@ using RecipesShare.Data;
 namespace RecipesShare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240404120821_Initial")]
+    [Migration("20240408223422_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -284,6 +284,9 @@ namespace RecipesShare.Data.Migrations
                     b.Property<int>("CookTime")
                         .HasColumnType("int");
 
+                    b.Property<DateOnly>("Created")
+                        .HasColumnType("date");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -430,7 +433,7 @@ namespace RecipesShare.Data.Migrations
             modelBuilder.Entity("RecipesShare.Data.Models.UserRecipe", b =>
                 {
                     b.HasOne("RecipesShare.Data.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("UserRecipes")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -461,6 +464,8 @@ namespace RecipesShare.Data.Migrations
             modelBuilder.Entity("RecipesShare.Data.Models.Recipe", b =>
                 {
                     b.Navigation("RecipeIngredients");
+
+                    b.Navigation("UserRecipes");
                 });
 #pragma warning restore 612, 618
         }

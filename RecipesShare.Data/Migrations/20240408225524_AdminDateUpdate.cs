@@ -6,45 +6,56 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecipesShare.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class DateTimeMigration : Migration
+    public partial class AdminDateUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "Created",
-                table: "Recipes",
-                type: "datetime2",
-                nullable: true);
-
             migrationBuilder.UpdateData(
                 table: "Recipes",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "Created",
-                value: null);
+                value: new DateOnly(2024, 4, 8));
 
             migrationBuilder.UpdateData(
                 table: "Recipes",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "Created",
-                value: null);
+                value: new DateOnly(2024, 4, 8));
 
             migrationBuilder.UpdateData(
                 table: "Recipes",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "Created",
-                value: null);
+                value: new DateOnly(2024, 4, 8));
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Created",
-                table: "Recipes");
+            migrationBuilder.UpdateData(
+                table: "Recipes",
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "Created",
+                value: new DateOnly(1, 1, 1));
+
+            migrationBuilder.UpdateData(
+                table: "Recipes",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "Created",
+                value: new DateOnly(1, 1, 1));
+
+            migrationBuilder.UpdateData(
+                table: "Recipes",
+                keyColumn: "Id",
+                keyValue: 3,
+                column: "Created",
+                value: new DateOnly(1, 1, 1));
         }
     }
 }
