@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipesShare.Cuisine.Data.Data;
 
 namespace RecipesShare.Controllers
 {
@@ -6,7 +7,8 @@ namespace RecipesShare.Controllers
     {
         public IActionResult AllCuisine()
         {
-            return View();
+            var cuisineData = new AllCuisineData();
+            return View(cuisineData);
         }
     }
 }

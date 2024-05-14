@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RecipesShare.Cuisine.Data\RecipesShare.Cuisine.Data.csproj" />
     <ProjectReference Include="..\RecipesShare.Data\RecipesShare.Data.csproj" />
     <ProjectReference Include="..\RecipesShare.Services\RecipesShare.Services.csproj" />
     <ProjectReference Include="..\RecipesShare.WebExtensions\RecipesShare.WebExtensions.csproj" />
