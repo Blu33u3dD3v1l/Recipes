@@ -204,3 +204,9 @@ body {
     font-weight: bold;
 }
 
+.cuisine-title {
+    display: block;
+    margin-top: 10px; /* Adjust margin as needed */
+    text-align: center; /* Center the button horizontally */
+}
+

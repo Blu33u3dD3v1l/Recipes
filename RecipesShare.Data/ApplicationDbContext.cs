@@ -34,7 +34,7 @@ namespace RecipesShare.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             
-            builder.ApplyConfiguration(new RecipeConfiguration());
+           builder.ApplyConfiguration(new RecipeConfiguration());
 
             base.OnModelCreating(builder);
         }

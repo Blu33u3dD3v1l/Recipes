@@ -191,7 +191,8 @@ namespace RecipesShare.Data.Migrations
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Instructions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateOnly>(type: "date", nullable: false)
+                    Created = table.Column<DateOnly>(type: "date", nullable: false),
+                    Edited = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

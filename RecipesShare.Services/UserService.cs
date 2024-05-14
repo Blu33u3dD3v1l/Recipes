@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-
 using RecipesShare.Data;
-using RecipesShare.Data.Models;
-using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace RecipesShare.Services
 {

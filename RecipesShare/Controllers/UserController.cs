@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RecipesShare.Models.Home;
 using RecipesShare.Services.Interface;
 using RecipesShare.WebExtensions;
 
@@ -61,6 +60,7 @@ namespace RecipesShare.Controllers
             return RedirectToAction("Profile", "User");
         }
 
+        [HttpGet]
         public async Task<IActionResult> ChangeInfo()
         {
                 var currId = User.GetId();
@@ -80,6 +80,7 @@ namespace RecipesShare.Controllers
             return RedirectToAction("Profile", "User");
         }
 
+        
         public async Task<IActionResult> ChangePicture()
         {
             var currId = User.GetId();

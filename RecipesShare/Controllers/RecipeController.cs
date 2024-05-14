@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipesShare.Models.Home;
-using RecipesShare.Services;
 using RecipesShare.Services.Interface;
 using RecipesShare.WebExtensions;
 
@@ -71,7 +70,6 @@ namespace RecipesShare.Controllers
         public async Task<IActionResult> RecipeDetails(int id)
         {
 
-            var user = User.GetId();
 
             var recipe = await recipeService.GetRecipeWithIngredientsAsync(id);
             if (recipe == null)

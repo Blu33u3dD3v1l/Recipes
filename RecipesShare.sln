@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesShare.Services", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesShare.WebExtensions", "RecipesShare.WebExtensions\RecipesShare.WebExtensions.csproj", "{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesShare.Common", "RecipesShare.Common\RecipesShare.Common.csproj", "{782C6E2C-8969-4C9B-9B05-78530E27024E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9D7E5BF-3BF4-42FB-BC62-D7DBF77E441A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{782C6E2C-8969-4C9B-9B05-78530E27024E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{782C6E2C-8969-4C9B-9B05-78530E27024E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{782C6E2C-8969-4C9B-9B05-78530E27024E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{782C6E2C-8969-4C9B-9B05-78530E27024E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
