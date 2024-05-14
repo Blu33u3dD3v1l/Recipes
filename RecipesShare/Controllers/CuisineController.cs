@@ -2,9 +2,9 @@
 
 namespace RecipesShare.Controllers
 {
-    public class CousineController : Controller
+    public class CuisineController : Controller
     {
-        public IActionResult AllCousine()
+        public IActionResult AllCuisine()
         {
             return View();
         }
